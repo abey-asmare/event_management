@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Seat extends BaseEntity {
 
     private String rowLabel;
-    private int number;
+    private int seatNumber;
     private boolean reserved;
 
     @ManyToOne
