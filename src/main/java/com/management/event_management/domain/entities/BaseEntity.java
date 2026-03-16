@@ -15,6 +15,7 @@ import java.util.UUID;
 public abstract class BaseEntity {
 
     @Id
+    @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 

@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -38,7 +39,7 @@ public class EventController {
                 request.getVenueId(),
                 request.getTitle(),
                 request.getDescription(),
-                request.isSeatBased(),
+                request.getSeatBased(),
                 request.getCapacity(),
                 request.getTicketPrice(),
                 request.getSeatRows(),
@@ -52,7 +53,7 @@ public class EventController {
     // update
     @PutMapping("/{id}")
     public ResponseEntity<EventResponse> updateEvent(
-            @PathVariable("id") Long eventId,
+            @PathVariable("id") UUID eventId,
             @Valid @RequestBody UpdateEventRequest request) {
 
         UpdateEventCommand command = new UpdateEventCommand(
@@ -70,7 +71,7 @@ public class EventController {
 
     // cancel
     @PostMapping("/{id}/cancel")
-    public ResponseEntity<EventResponse> cancelEvent(@PathVariable("id") Long eventId) {
+    public ResponseEntity<EventResponse> cancelEvent(@PathVariable("id") UUID eventId) {
         CancelEventCommand command = new CancelEventCommand(eventId);
         Event canceled = cancelHandler.handle(command);
         return ResponseEntity.ok(mapToResponse(canceled));
@@ -85,12 +86,12 @@ public class EventController {
 
     //get
     @GetMapping("/{id}")
-    public ResponseEntity<EventResponse> getEventById(@PathVariable("id") Long id) {
+    public ResponseEntity<EventResponse> getEventById(@PathVariable("id") UUID id) {
         Event event = getEvents.getEventById(id);
         return ResponseEntity.ok(mapToResponse(event));
     }
     @GetMapping("/organizer/{id}")
-    public ResponseEntity<List<EventResponse>> getEventsForOrganizer(@PathVariable("id") Long organizerId) {
+    public ResponseEntity<List<EventResponse>> getEventsForOrganizer(@PathVariable("id") UUID organizerId) {
         List<Event> events = getEvents.getEventsForOrganizer(organizerId);
         return ResponseEntity.ok(events.stream().map(this::mapToResponse).collect(Collectors.toList()));
     }
