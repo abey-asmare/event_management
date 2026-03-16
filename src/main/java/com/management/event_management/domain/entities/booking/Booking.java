@@ -25,7 +25,7 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "event_id")
     private Event event;
 
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets;
 
     @Enumerated(EnumType.STRING)

@@ -46,10 +46,10 @@ public class Event extends BaseEntity {
     private EventStatus status;
 
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Seat> seats;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "event")
