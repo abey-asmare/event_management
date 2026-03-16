@@ -1,7 +1,15 @@
 package com.management.event_management.domain.entities.user;
 
 import com.management.event_management.domain.entities.BaseEntity;
+import com.management.event_management.domain.entities.booking.Booking;
+import com.management.event_management.domain.entities.booking.Ticket;
+import com.management.event_management.domain.entities.event.Event;
+import com.management.event_management.domain.enums.UserRole;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -12,39 +20,16 @@ public class User extends BaseEntity {
     @Column(unique = true)
     private String email;
 
-    // TODO: implement authentication and oauth2 later on
-    private String provider;
-    private String providerId;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy = "organizer")
+    private List<Event> organizedEvents;
 
-    public String getEmail() {
-        return email;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Booking> bookings;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
-        this.provider = provider;
-    }
-
-    public String getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
+    @OneToMany(mappedBy = "holderUser")
+    private List<Ticket> tickets;
 }

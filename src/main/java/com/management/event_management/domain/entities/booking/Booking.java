@@ -2,6 +2,7 @@ package com.management.event_management.domain.entities.booking;
 
 import com.management.event_management.domain.entities.BaseEntity;
 import com.management.event_management.domain.entities.event.Event;
+import com.management.event_management.domain.entities.user.User;
 import com.management.event_management.domain.enums.BookingStatus;
 import jakarta.persistence.*;
 
@@ -12,18 +13,17 @@ import java.util.UUID;
 @Table(name = "bookings")
 public class Booking extends BaseEntity {
 
-    @Column(name = "user_id", columnDefinition = "uuid")
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
 
-    @Enumerated(EnumType.STRING)
-    private BookingStatus status;
-
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
 
-    // Getters and setters
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
 }

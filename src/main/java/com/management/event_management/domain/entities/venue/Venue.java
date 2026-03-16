@@ -13,11 +13,10 @@ public class Venue extends BaseEntity {
     private String name;
     private int capacity;
 
-    @Embedded   // This will embed the Address columns into the venues table
+    @Embedded
     private Address address;
 
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
     private List<Event> events;
 
-    // Getters and setters (or Lombok)
 }
