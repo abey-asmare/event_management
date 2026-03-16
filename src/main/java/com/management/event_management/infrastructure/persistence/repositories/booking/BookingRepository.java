@@ -4,11 +4,12 @@ import com.management.event_management.domain.entities.booking.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface BookingRepository extends JpaRepository<Booking, Long> {
+public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
-    List<Booking> findByUserId(Long userId);
+    List<Booking> findByUserId(UUID userId);
 
-    List<Booking> findByEventId(Long eventId);
+    List<Booking> findByEventId(UUID eventId);
 
 }

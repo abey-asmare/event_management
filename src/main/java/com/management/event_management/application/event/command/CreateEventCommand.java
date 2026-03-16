@@ -3,12 +3,14 @@ package com.management.event_management.application.event.command;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Getter
 @AllArgsConstructor
 public class CreateEventCommand {
 
-    private Long organizerId;
-    private Long venueId;
+    private UUID organizerId;
+    private UUID venueId;
     private String title;
     private String description;
     private boolean seatBased;

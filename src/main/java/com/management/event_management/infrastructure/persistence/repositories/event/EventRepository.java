@@ -7,11 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Long> {
+public interface EventRepository extends JpaRepository<Event, UUID> {
 
-    List<Event> findByOrganizerId(Long organizerId);
+    List<Event> findByOrganizerId(UUID organizerId);
 
     List<Event> findByStartTimeAfter(LocalDateTime time);
 

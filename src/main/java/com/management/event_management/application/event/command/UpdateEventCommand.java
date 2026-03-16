@@ -5,12 +5,13 @@ import lombok.Getter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
 public class UpdateEventCommand {
 
-    private Long eventId;
+    private UUID eventId;
     private String title;
     private String description;
     private LocalDateTime startTime;
