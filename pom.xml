@@ -104,7 +104,7 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <!--            flyway maven plugin -->
+            <!-- flyway maven plugin -->
             <plugin>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-maven-plugin</artifactId>
