@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +24,13 @@ public class GetEvents {
     }
 
     @Transactional(readOnly = true)
-    public Event getEventById(Long eventId) {
+    public Event getEventById(UUID eventId) {
         return eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException("Event with ID " + eventId + " not found"));
     }
 
     @Transactional(readOnly = true)
-    public List<Event> getEventsForOrganizer(Long organizerId) {
+    public List<Event> getEventsForOrganizer(UUID organizerId) {
         List<Event> events = eventRepository.findByOrganizerId(organizerId);
         if (events.isEmpty()) {
             throw new EventNotFoundException("No events found for organizer with ID " + organizerId);

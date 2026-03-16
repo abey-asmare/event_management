@@ -12,6 +12,8 @@ import lombok.Setter;
 public class Seat extends BaseEntity {
 
     private String rowLabel;
+
+@Column(name = "seat_number")
     private int seatNumber;
     private boolean reserved;
 
