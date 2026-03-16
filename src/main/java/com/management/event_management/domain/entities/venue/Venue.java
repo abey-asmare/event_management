@@ -4,11 +4,15 @@ import com.management.event_management.domain.entities.BaseEntity;
 import com.management.event_management.domain.entities.event.Event;
 import com.management.event_management.domain.entities.shared.Address;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "venues")
+@Getter
+@Setter
 public class Venue extends BaseEntity {
     private String name;
     private int capacity;

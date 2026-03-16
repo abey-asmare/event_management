@@ -5,12 +5,16 @@ import com.management.event_management.domain.entities.event.Event;
 import com.management.event_management.domain.entities.user.User;
 import com.management.event_management.domain.enums.BookingStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "bookings")
+@Getter
+@Setter
 public class Booking extends BaseEntity {
 
     @ManyToOne

@@ -6,10 +6,14 @@ import com.management.event_management.domain.entities.event.Seat;
 import com.management.event_management.domain.entities.user.User;
 import com.management.event_management.domain.enums.TicketStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 @Entity
 @Table(name = "tickets")
+@Getter
+@Setter
 public class Ticket extends BaseEntity {
 
     @ManyToOne

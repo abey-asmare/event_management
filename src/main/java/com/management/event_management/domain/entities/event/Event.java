@@ -7,12 +7,16 @@ import com.management.event_management.domain.entities.user.User;
 import com.management.event_management.domain.entities.venue.Venue;
 import com.management.event_management.domain.enums.EventStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "events")
+@Getter
+@Setter
 public class Event extends BaseEntity {
 
     @ManyToOne
