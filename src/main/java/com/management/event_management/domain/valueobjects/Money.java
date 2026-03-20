@@ -1,6 +1,7 @@
 package com.management.event_management.domain.valueobjects;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -15,6 +16,10 @@ public class Money {
             throw new IllegalArgumentException("Amount must be non-negative");
         }
         this.amount = amount;
+    }
+
+    public Money(){
+        this.amount = new BigDecimal("0");
     }
 
     public Money add(Money other) {

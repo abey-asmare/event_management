@@ -2,6 +2,7 @@ package com.management.event_management.api.exception;
 
 import com.management.event_management.domain.exceptions.DomainException;
 import com.management.event_management.domain.exceptions.event.EventNotFoundException;
+import com.management.event_management.domain.exceptions.payment.PaymentNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -21,6 +22,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EventNotFoundException.class)
     public ResponseEntity<String> handleEventNotFound(EventNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }@ExceptionHandler(PaymentNotFoundException.class)
+    public ResponseEntity<String> handleEventNotFound(PaymentNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
@@ -42,7 +46,8 @@ public class GlobalExceptionHandler {
         errors.put("messages", fieldErrors);
 
         return ResponseEntity.badRequest().body(errors);
-    }@ExceptionHandler(HttpMessageNotReadableException.class)
+    }
+    @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleInvalidJson(HttpMessageNotReadableException ex) {
         String message = ex.getMessage();
         Throwable cause = ex.getCause();

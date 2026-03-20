@@ -2,7 +2,7 @@ package com.management.event_management.api.controllers;
 
 import com.management.event_management.api.dto.payment.request.CompletePaymentRequest;
 import com.management.event_management.api.dto.payment.request.CreatePaymentRequest;
-import com.management.event_management.api.dto.payment.response.PaymentInitializationResponse;
+import com.management.event_management.api.dto.payment.response.PaymentInitiationResponse;
 import com.management.event_management.api.dto.payment.response.PaymentResponse;
 import com.management.event_management.application.payment.command.CompletePaymentCommand;
 import com.management.event_management.application.payment.command.CreatePaymentCommand;
@@ -13,7 +13,6 @@ import com.management.event_management.application.payment.command.handler.FailP
 import com.management.event_management.application.payment.query.GetPayments;
 import com.management.event_management.domain.entities.payment.Payment;
 import com.management.event_management.domain.enums.PaymentStatus;
-import com.management.event_management.domain.valueobjects.Money;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,53 +31,27 @@ public class PaymentController {
     private final GetPayments getPayments;
 
     @PostMapping
-    public PaymentInitializationResponse createPayment(
+    public PaymentInitiationResponse createPayment(
             @Valid @RequestBody CreatePaymentRequest request
     ) {
-
-        Money money = new Money(request.getAmount());
-
-        String checkoutUrl = createPaymentHandler.handle(
-                new CreatePaymentCommand(request.getBookingId(), money)
+        return createPaymentHandler.handle(
+                new CreatePaymentCommand(request.getBookingId(), request.getPaymentMethod())
         );
-
-        return new PaymentInitializationResponse(checkoutUrl);
     }
 
-
-
-//    @PostMapping
-//    public PaymentResponse createPayment(@Valid @RequestBody CreatePaymentRequest request) {
-//
-//        Money money = new Money(request.getAmount());
-//
-//        Payment payment = createPaymentHandler.handle(
-//                new CreatePaymentCommand(request.getBookingId(), money)
-//        );
-//
-//        return PaymentResponse.from(payment);
-//    }
-
-    @PostMapping("/{paymentId}/complete")
+    @PostMapping("/complete")
     public PaymentResponse completePayment(
-            @PathVariable UUID paymentId,
-            @Valid  @RequestBody CompletePaymentRequest request
+            @Valid @RequestBody CompletePaymentRequest request
     ) {
-
         Payment payment = completePaymentHandler.handle(
-                new CompletePaymentCommand(paymentId, request.getReceiptUrl())
+                new CompletePaymentCommand(request.getTransactionRef())
         );
-
         return PaymentResponse.from(payment);
     }
 
     @PostMapping("/{paymentId}/fail")
     public PaymentResponse failPayment(@PathVariable UUID paymentId) {
-
-        Payment payment = failPaymentHandler.handle(
-                new FailPaymentCommand(paymentId)
-        );
-
+        Payment payment = failPaymentHandler.handle(new FailPaymentCommand(paymentId));
         return PaymentResponse.from(payment);
     }
 

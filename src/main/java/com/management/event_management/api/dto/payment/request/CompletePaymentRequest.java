@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 public class CompletePaymentRequest {
 
-    @NotBlank(message = "Receipt URL is required")
-    private String receiptUrl;
-
+    @NotBlank(message = "Transaction reference is required")
+    private String transactionRef;
 }
