@@ -1,4 +1,4 @@
-package com.management.event_management.domain.valueobject;
+package com.management.event_management.domain.valueobjects;
 
 public class Location {
 
