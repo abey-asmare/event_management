@@ -25,10 +25,6 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-
-    @OneToMany(mappedBy = "organizer")
-    private List<Event> organizedEvents;
-
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;
 

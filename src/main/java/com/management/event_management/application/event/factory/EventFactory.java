@@ -2,7 +2,7 @@ package com.management.event_management.application.event.factory;
 
 import com.management.event_management.domain.entities.event.Event;
 import com.management.event_management.domain.entities.event.Seat;
-import com.management.event_management.domain.entities.user.User;
+import com.management.event_management.domain.entities.organizer.Organizer;
 import com.management.event_management.domain.entities.venue.Venue;
 import com.management.event_management.domain.enums.EventStatus;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class EventFactory {
 
     public static Event createEvent(
-            User organizer,
+            Organizer organizer,
             Venue venue,
             String title,
             String description,

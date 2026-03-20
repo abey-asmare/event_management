@@ -3,7 +3,7 @@ package com.management.event_management.domain.entities.event;
 import com.management.event_management.domain.entities.BaseEntity;
 import com.management.event_management.domain.entities.booking.Booking;
 import com.management.event_management.domain.entities.booking.Ticket;
-import com.management.event_management.domain.entities.user.User;
+import com.management.event_management.domain.entities.organizer.Organizer;
 import com.management.event_management.domain.entities.venue.Venue;
 import com.management.event_management.domain.enums.EventStatus;
 import com.management.event_management.domain.exceptions.event.InvalidEventScheduleException;
@@ -23,7 +23,7 @@ public class Event extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "organizer_id")
-    private User organizer;
+    private Organizer organizer;
 
     @ManyToOne
     @JoinColumn(name = "venue_id")
@@ -41,7 +41,6 @@ public class Event extends BaseEntity {
     private Integer capacity;
 
     private boolean seatBased;
-
     private Double ticketPrice;
 
     @Enumerated(EnumType.STRING)
@@ -55,10 +54,6 @@ public class Event extends BaseEntity {
 
     @OneToMany(mappedBy = "event")
     private List<Ticket> tickets = new ArrayList<>();
-
-    // =========================
-    // DOMAIN METHODS
-    // =========================
 
     public void updateDetails(String title, String description) {
         this.title = title;
@@ -93,7 +88,7 @@ public class Event extends BaseEntity {
                 Seat seat = new Seat();
                 seat.setEvent(this);
                 seat.setRowLabel(rowLabel);
-                seat.setSeatNumber(i);
+                seat.setSeatCode(i);
                 seat.setReserved(false);
                 this.seats.add(seat);
             }

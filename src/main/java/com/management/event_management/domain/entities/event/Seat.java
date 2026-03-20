@@ -13,8 +13,8 @@ public class Seat extends BaseEntity {
 
     private String rowLabel;
 
-@Column(name = "seat_number")
-    private int seatNumber;
+@Column(name = "seat_code")
+    private int seatCode;
     private boolean reserved;
 
     @ManyToOne

@@ -3,10 +3,11 @@ package com.management.event_management.application.event.command.handler;
 import com.management.event_management.application.event.command.CreateEventCommand;
 import com.management.event_management.application.event.factory.EventFactory;
 import com.management.event_management.domain.entities.event.Event;
-import com.management.event_management.domain.entities.user.User;
+import com.management.event_management.domain.entities.organizer.Organizer;
 import com.management.event_management.domain.entities.venue.Venue;
 import com.management.event_management.domain.exceptions.event.EventNotFoundException;
 import com.management.event_management.infrastructure.persistence.repositories.EventRepository;
+import com.management.event_management.infrastructure.persistence.repositories.organizer.OrganizerRepository;
 import com.management.event_management.infrastructure.persistence.repositories.user.UserRepository;
 import com.management.event_management.infrastructure.persistence.repositories.venue.VenueRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateEventHandler {
 
     private final EventRepository eventRepository;
-    private final UserRepository userRepository;
     private final VenueRepository venueRepository;
+    private final OrganizerRepository organizerRepository;
 
     @Transactional
     public Event handle(CreateEventCommand command) {
 
-        User organizer = userRepository.findById(command.getOrganizerId())
+        Organizer organizer = organizerRepository.findById(command.getOrganizerId())
                 .orElseThrow(() -> new EventNotFoundException("Organizer not found"));
 
         Venue venue = venueRepository.findById(command.getVenueId())
