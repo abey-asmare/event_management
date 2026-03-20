@@ -12,4 +12,9 @@ public class TelebirrPaymentGateway implements PaymentGateway {
         // TODO: Implement
         return "https://telebirr.com/pay/" + payment.getId();
     }
+
+    @Override
+    public boolean verifyPayment(String transactionRef) {
+        return false;
+    }
 }

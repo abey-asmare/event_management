@@ -29,7 +29,7 @@ public class CreatePaymentHandler {
     }
 
     @Transactional
-    public Payment handle(CreatePaymentCommand command) {
+    public String handle(CreatePaymentCommand command) {
         Booking booking = bookingRepository.findById(command.getBookingId())
                 .orElseThrow(() -> new IllegalArgumentException("Booking not found"));
 
@@ -38,8 +38,10 @@ public class CreatePaymentHandler {
 
         String receiptUrl = paymentGateway.initiatePayment(payment);
         payment.markAsPending();
+
+        String checkoutUrl = paymentGateway.initiatePayment(payment);
         paymentRepository.save(payment);
 
-        return payment;
+        return checkoutUrl;
     }
 }

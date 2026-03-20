@@ -18,6 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Payment extends BaseEntity {
 
+
     @OneToOne
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
@@ -29,6 +30,8 @@ public class Payment extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
+
+    private String transactionRef;
 
     private Payment(Booking booking, Money amount) {
         if (booking == null) {

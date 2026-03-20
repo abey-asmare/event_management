@@ -5,4 +5,5 @@ import com.management.event_management.domain.entities.payment.Payment;
 public interface PaymentGateway {
 
     String initiatePayment(Payment payment);
+    boolean verifyPayment(String transactionRef);
 }

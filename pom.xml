@@ -102,6 +102,14 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- chapa integration -->
+        <!-- Source: https://mvnrepository.com/artifact/io.github.yaphet17/Chapa -->
+        <dependency>
+            <groupId>io.github.yaphet17</groupId>
+            <artifactId>Chapa</artifactId>
+            <version>1.2.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

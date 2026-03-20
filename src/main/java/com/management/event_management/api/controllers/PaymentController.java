@@ -2,6 +2,7 @@ package com.management.event_management.api.controllers;
 
 import com.management.event_management.api.dto.payment.request.CompletePaymentRequest;
 import com.management.event_management.api.dto.payment.request.CreatePaymentRequest;
+import com.management.event_management.api.dto.payment.response.PaymentInitializationResponse;
 import com.management.event_management.api.dto.payment.response.PaymentResponse;
 import com.management.event_management.application.payment.command.CompletePaymentCommand;
 import com.management.event_management.application.payment.command.CreatePaymentCommand;
@@ -31,16 +32,32 @@ public class PaymentController {
     private final GetPayments getPayments;
 
     @PostMapping
-    public PaymentResponse createPayment(@Valid @RequestBody CreatePaymentRequest request) {
+    public PaymentInitializationResponse createPayment(
+            @Valid @RequestBody CreatePaymentRequest request
+    ) {
 
         Money money = new Money(request.getAmount());
 
-        Payment payment = createPaymentHandler.handle(
+        String checkoutUrl = createPaymentHandler.handle(
                 new CreatePaymentCommand(request.getBookingId(), money)
         );
 
-        return PaymentResponse.from(payment);
+        return new PaymentInitializationResponse(checkoutUrl);
     }
+
+
+
+//    @PostMapping
+//    public PaymentResponse createPayment(@Valid @RequestBody CreatePaymentRequest request) {
+//
+//        Money money = new Money(request.getAmount());
+//
+//        Payment payment = createPaymentHandler.handle(
+//                new CreatePaymentCommand(request.getBookingId(), money)
+//        );
+//
+//        return PaymentResponse.from(payment);
+//    }
 
     @PostMapping("/{paymentId}/complete")
     public PaymentResponse completePayment(
