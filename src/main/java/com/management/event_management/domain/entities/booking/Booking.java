@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,12 @@ public class Booking extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
+    @ElementCollection
+    @CollectionTable(name = "booking_reserved_seats", joinColumns = @JoinColumn(name = "booking_id"))
+    @Column(name = "seat_id")
+    private List<UUID> reservedSeatIds = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "event_id")

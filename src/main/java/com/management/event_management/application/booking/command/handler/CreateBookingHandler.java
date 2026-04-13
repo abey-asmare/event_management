@@ -17,6 +17,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,8 +38,9 @@ public class CreateBookingHandler {
         User user = userRepository.findById(command.getUserId())
                 .orElseThrow();
 
-        if (event.isSeatBased()) {
+        List<UUID> reservedSeatIds = new ArrayList<>();
 
+        if (event.isSeatBased()) {
             List<Seat> seats = event.getSeats();
 
             for (UUID seatId : command.getSeatIds()) {
@@ -53,11 +55,15 @@ public class CreateBookingHandler {
                 }
 
                 seat.setReserved(true);
+                reservedSeatIds.add(seatId);
+
+
             }
         }
 
         Booking booking = BookingFactory.create(event, user);
 
+        booking.setReservedSeatIds(reservedSeatIds);
         bookingRepository.save(booking);
 
         return booking.getId();

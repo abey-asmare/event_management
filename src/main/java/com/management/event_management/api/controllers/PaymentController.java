@@ -40,15 +40,15 @@ public class PaymentController {
     }
 
     @PostMapping("/complete")
-    public PaymentResponse completePayment(
-            @Valid @RequestBody CompletePaymentRequest request
-    ) {
+    public PaymentResponse completePayment(@Valid @RequestBody CompletePaymentRequest request) {
+        String receiptUrl = request.getReceiptUrl() != null
+                ? request.getReceiptUrl()
+                : "manual://" + request.getTransactionRef();
         Payment payment = completePaymentHandler.handle(
-                new CompletePaymentCommand(request.getTransactionRef())
+                new CompletePaymentCommand(request.getTransactionRef(), receiptUrl)
         );
         return PaymentResponse.from(payment);
     }
-
     @PostMapping("/{paymentId}/fail")
     public PaymentResponse failPayment(@PathVariable UUID paymentId) {
         Payment payment = failPaymentHandler.handle(new FailPaymentCommand(paymentId));

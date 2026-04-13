@@ -12,11 +12,13 @@ import com.yaphet.chapa.model.InitializeResponseData;
 import com.yaphet.chapa.model.PostData;
 import com.yaphet.chapa.model.VerifyResponseData;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
+@Primary
 public class ChapaPaymentGateway implements PaymentGateway {
 
     private final String secretKey;
@@ -34,6 +36,7 @@ public class ChapaPaymentGateway implements PaymentGateway {
 
             String txRef = "tx-" + UUID.randomUUID();
 
+
             Customization customization = new Customization()
                     .setTitle("Event Management")
                     .setDescription("Payment for booking")
@@ -41,13 +44,13 @@ public class ChapaPaymentGateway implements PaymentGateway {
 
             PostData postData = new PostData()
                     .setAmount(payment.getAmount().getAmount())
-                    .setCurrency("ETB")
-                    .setEmail("customer@email.com")
-                    .setFirstName("First")
-                    .setLastName("Last")
-                    .setTxRef(txRef)
-                    .setCallbackUrl(this.BASE_URL + "/payments/webhook/chapa")
-                    .setReturnUrl(this.BASE_URL + "/payments/webhook/chapa/success?tx_ref="+txRef)
+                            .setCurrency("ETB")
+                            .setEmail("customer@email.com")
+                            .setFirstName("First")
+                            .setLastName("Last")
+                            .setTxRef(txRef)
+                            .setCallbackUrl(this.BASE_URL + "/payments/webhook/chapa")
+                            .setReturnUrl(this.BASE_URL + "/payments/webhook/chapa/success?tx_ref="+txRef)
                     .setCustomization(customization);
 
             InitializeResponseData response = chapa.initialize(postData);

@@ -1,6 +1,6 @@
 
 --
--- create table users
+-- create table if not exists users
 -- (
 --     created_at timestamp(6),
 --     updated_at timestamp(6),
@@ -18,7 +18,7 @@
 -- alter table users
 --     owner to postgres;
 
-create table organizers
+create table if not exists organizers
 (
     created_at        timestamp(6),
     updated_at        timestamp(6),
@@ -47,7 +47,7 @@ grant delete, insert, references, select, trigger, truncate, update on users to 
 
 grant delete, insert, references, select, trigger, truncate, update on users to service_role;
 --
--- create table venues
+-- create table if not exists venues
 -- (
 --     capacity    integer not null,
 --     created_at  timestamp(6),
@@ -64,7 +64,7 @@ grant delete, insert, references, select, trigger, truncate, update on users to 
 -- alter table venues
 --     owner to postgres;
 --
--- create table events
+-- create table if not exists events
 -- (
 --     capacity     integer,
 --     seat_based   boolean not null,
@@ -92,7 +92,7 @@ grant delete, insert, references, select, trigger, truncate, update on users to 
 -- alter table events
 --     owner to postgres;
 --
--- create table bookings
+-- create table if not exists bookings
 -- (
 --     created_at timestamp(6),
 --     updated_at timestamp(6),
@@ -125,7 +125,7 @@ grant delete, insert, references, select, trigger, truncate, update on users to 
 --
 -- grant delete, insert, references, select, trigger, truncate, update on events to service_role;
 --
--- create table payments
+-- create table if not exists payments
 -- (
 --     amount      double precision not null,
 --     created_at  timestamp(6),
@@ -152,7 +152,7 @@ grant delete, insert, references, select, trigger, truncate, update on users to 
 --
 -- grant delete, insert, references, select, trigger, truncate, update on payments to service_role;
 --
--- create table seats
+-- create table if not exists seats
 -- (
 --     reserved    boolean not null,
 --     seat_number integer,
@@ -175,7 +175,7 @@ grant delete, insert, references, select, trigger, truncate, update on users to 
 --
 -- grant delete, insert, references, select, trigger, truncate, update on seats to service_role;
 --
--- create table tickets
+-- create table if not exists tickets
 -- (
 --     created_at     timestamp(6),
 --     updated_at     timestamp(6),

@@ -7,4 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CompletePaymentCommand {
     private final String transactionRef;
+    private final String receiptUrl;
 }
